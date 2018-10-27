@@ -1,0 +1,183 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: 'Notes App'
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /hello:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    get:
+      description: Returns 'Hello' to the caller
+      # used as the method name of the controller
+      operationId: hello
+      parameters:
+        - name: name
+          in: query
+          description: The name of the person to whom to say hello
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/HelloWorldResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/DefaultResponse"
+
+  /notes:
+    x-swagger-router-controller: notes
+    get:
+      description: 'Returns a list of notes that are saved on the server'
+      operationId: getNotes
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/NoteList"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/DefaultResponse"
+    put:
+      description: 'Adds a new note'
+      operationId: putNote
+      parameters:
+      - in: body
+        name: note
+        description: 'A note object with a title and body'
+        required: true
+        schema:
+          $ref: '#/definitions/Note'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/NoteList"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/DefaultResponse"
+
+
+  /notes/{noteId}:
+    x-swagger-router-controller: note
+    get:
+      description: 'Returns a list of notes that are saved on the server'
+      operationId: getNote
+      parameters:
+      - name: noteId
+        in: path
+        description: 'The index of a note'
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Note"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/DefaultResponse"
+    post:
+      description: 'Update an existing Note'
+      operationId: postNote
+      parameters:
+        - $ref: '#/parameters/noteId'
+        - in: body
+          name: note
+          description: 'A note object with a title and body'
+          required: true
+          schema:
+            $ref: '#/definitions/Note'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Note"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/DefaultResponse"
+    delete:
+      description: 'Update an existing Note'
+      operationId: deleteNote
+      parameters:
+      - $ref: '#/parameters/noteId'
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/DefaultResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/DefaultResponse"
+
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+
+
+parameters:
+
+  ### Path
+  noteId:
+    name: noteId
+    in: path
+    type: integer
+    required: true
+    minimum: 0
+    description: 'The index of a note'
+
+
+# complex objects have schema definitions
+definitions:
+  HelloWorldResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  DefaultResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+
+  NoteList:
+    type: array
+    items:
+      $ref: '#/definitions/Note'
+
+  Note:
+    type: object
+    properties:
+      title:
+        type: string
+        description: 'A short summary title of the note'
+      body:
+        type: string
+        description: 'A message to the body of a note'
+
