@@ -1,28 +1,34 @@
+'use strict';
 const _ = require('lodash');
+const db = require('../../db');
 
 module.exports = {
   getNotes,
   putNote
 };
 
-let notesArray = [{
-  title: 'first title 1',
-  body: 'first body 1'
-},
-  {
-    title: 'second title 2',
-    body: 'second body 2'
-  }
-];
-
-
 function getNotes(req, res) {
-  res.json(notesArray);
+  db.getNotes()
+      .then(notes => {
+        res.json(notes);
+      })
+      .catch(err => {
+        console.log(err.stack);
+        res.status(500);
+        res.json({message: 'Server Error!'});
+      });
 }
 
 function putNote(req, res) {
   const title = req.swagger.params.note.value.note.title;
   const body = req.swagger.params.note.value.note.body;
-  const newNotesArray = notesArray.slice().concat({title, body});
-  res.json(newNotesArray);
+  db.createNote(title, body)
+      .then(notes => {
+        res.json(notes);
+      })
+      .catch(err => {
+        console.log(err.stack);
+        res.status(500);
+        res.json({message: 'Server Error!'});
+      });
 }

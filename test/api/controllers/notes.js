@@ -18,6 +18,7 @@ describe('controllers', function() {
             .end(function(err, res) {
               should.not.exist(err);
               res.body.should.be.instanceOf(Array);
+              res.body.length.should.eql(2);
               done();
             });
       });
