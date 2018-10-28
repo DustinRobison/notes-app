@@ -11,7 +11,7 @@ describe('controllers', function() {
       it('should return an array of notes', function(done) {
 
         request(server)
-            .get('/notes')
+            .get('/api/notes')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200)
@@ -28,7 +28,7 @@ describe('controllers', function() {
 
       it('should return the notes array with a new note on the end', function(done) {
         request(server)
-            .put('/notes')
+            .put('/api/notes')
             .send({"note": {"title": "new note title", "body": "new note body"}})
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
