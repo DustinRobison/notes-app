@@ -1,0 +1,123 @@
+.App {
+  width: 100%;
+  min-width: 660px;
+  height: 100vh;
+  background-color: beige;
+  overflow: hidden;
+}
+
+.note-top {
+  position: absolute;
+  width: 100%;
+  min-width: 660px;
+  height: 3rem;
+  border-bottom: 1px solid black;
+}
+
+
+.note-side {
+  margin-top: 3rem;
+  float: left;
+  width: 15rem;
+  height: 100%;
+  background-color: beige;
+  border-right: 1px solid black;
+}
+
+.note-main {
+  margin-top: 3rem;
+  float: left;
+  height: 100%;
+  background-color: beige;
+}
+
+
+.title-bar {
+  width: 100%;
+  height: 100%;
+  background-color: gainsboro;
+}
+
+.title-bar .button-box {
+  float: left;
+  width: 15rem;
+  margin: 0 1rem;
+  padding-top: 1rem;
+}
+
+.title-bar .title {
+  float: left;
+  font-family: Arial;
+  margin-top: 1rem;
+  font-size: 20px;
+}
+
+.title-bar .top-button {
+  margin: 0 1rem;
+}
+
+.note-list {
+  margin: 0 auto;
+  left: 0;
+  top: 3rem;
+  width: 15rem;
+  float: left;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.note-list .note {
+  margin: 0;
+  text-align: left;
+  border-bottom: 1px solid black;
+  transition: 0.3s;
+  padding: 1rem 2rem;
+}
+
+.note-list .selected{
+  background: #f0fa8e;
+}
+
+.note-list .note:hover {
+  background-color: burlywood;
+}
+
+.note-editor {
+  width: 100%;
+  height: 80%;
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+
+.note-editor .note-editable {
+  min-width: 20rem;
+  border: none;
+  border-color: transparent;
+  background-color: beige;
+}
+
+.note-title {
+  width: 50%;
+  height: 3rem;
+  font-size: 2rem;
+  float: left;
+}
+
+.note-save {
+  font-size: 2rem;
+  float: left;
+}
+
+.note-body {
+  width: 100%;
+  min-height: 10rem;
+  height: 100%;
+  font-size: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+

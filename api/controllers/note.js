@@ -41,9 +41,8 @@ function postNote(req, res) {
 function deleteNote(req, res) {
   const noteId = req.swagger.params.noteId.value;
   db.deleteNote(noteId)
-      .then(() => {
-        res.status(200);
-        res.json({message: `Note at index ${noteId} has been deleted`});
+      .then((notes) => {
+        res.json(notes);
       })
       .catch(err => {
         console.log(err.stack);

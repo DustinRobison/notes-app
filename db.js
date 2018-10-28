@@ -78,7 +78,11 @@ function deleteNote(id) {
     db.serialize(function() {
       db.run(`DELETE FROM notes WHERE rowid = ?`, id);
       db.run("VACUUM");
-      resolve();
+      db.all("SELECT * FROM notes", function(err, row) {
+        if (err)
+          reject(err);
+        resolve(row);
+      });
     });
   });
 }

@@ -8,12 +8,16 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
     "express": "^4.12.3",
     "lodash": "^4.17.11",
     "sqlite3": "^4.0.3",
     "swagger-express-mw": "^0.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
     "should": "^7.1.0",
     "supertest": "^1.0.0"
   },
